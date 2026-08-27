@@ -1,37 +1,46 @@
-# Portfolio template
+# Portfolio
 
-Cassette-futurist catalog skin on a structured Next.js portfolio: sticky hero, hardware nav, work tiles, testimonials, about, playground, and data-driven case studies.
+Personal site: a **cassette-futurist** product-design catalog. Analog electronics print (cream paper, mustard slabs, safety orange, condensed type) on a small Next.js app.
 
-Structure and motion come from the original template. The visual language is late-70s / early-80s Japanese electronics print — cream paper, mustard slabs, safety orange, condensed grotesque type, spec-sheet labels, print grain.
+Placeholder identity and photos are in `content/` so they can be replaced without a redesign.
 
-## Run
+## Quick start
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Customize
+Open [http://localhost:3000](http://localhost:3000).
 
-All visitor-facing copy lives in `/content`:
-
-| File | What it controls |
+| Command | What it does |
 |---|---|
-| `content/site.ts` | Name, role, location, intro, footer, contact, socials, avatar |
-| `content/projects.ts` | Home work tiles (`wide` / `narrow`) and slugs |
-| `content/testimonials.ts` | Carousel quotes |
-| `content/experience.ts` | About timeline + fun-fact photos |
-| `content/playground.ts` | Coverflow experiments |
-| `content/case-studies.ts` | Band arrays for `/work/[slug]` |
+| `npm run dev` | Local server |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
 
-Add a case study by appending a `CaseStudy` object to `caseStudies` and a matching tile in `projects.ts`. Bands are `hero`, `panel`, `quote`, `gallery`, `logoband`, `closing`, `readnext`.
+Node 20+.
 
-Drop an audio file URL into `site.audioSrc` to drive the cassette player and nav wave.
+## What’s here
 
-## Theme
+- `/` — hero, intro, selected work, testimonials, contact footer
+- `/about` — bio, experience, photos
+- `/playground` — experiment coverflow
+- `/work/[slug]` — case studies assembled from content bands
 
-Day/night is stored in `localStorage` under `theme`. Tokens live in `app/globals.css`: cream paper + mustard + safety orange in day; warm charcoal workshop at night. Semantic roles (`--bg-base`, `--hero-from`, …) flip under `[data-theme="night"]`.
+## Make it yours
+
+1. Edit [`content/site.ts`](content/site.ts) (name, role, location, email, avatar).
+2. Replace tiles and case studies in [`content/projects.ts`](content/projects.ts) and [`content/case-studies.ts`](content/case-studies.ts).
+3. Drop images in `public/` or keep remote URLs (see `next.config.ts`).
+4. Optional: set `audioSrc` for the cassette player.
+
+Longer walkthrough: **[docs/codebase.md](docs/codebase.md)**.
+
+## Design
+
+The look is locked in **[docs/aesthetic.md](docs/aesthetic.md)** so future work (and new agent sessions) stay on the same catalog language. Images can be refined; the system (tokens, type, hardware chrome, grain) should not drift without an explicit decision.
 
 ## Stack
 
-Next.js App Router, TypeScript, Tailwind CSS v4, `next/font` (Barlow Condensed, Archivo, Libre Bodoni, IBM Plex Mono).
+Next.js (App Router), TypeScript, Tailwind CSS v4, `next/font` (Barlow Condensed, Archivo, Libre Bodoni, IBM Plex Mono).

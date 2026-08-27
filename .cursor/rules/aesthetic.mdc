@@ -1,0 +1,14 @@
+---
+description: Cassette-futurist aesthetic — follow docs/aesthetic.md for all visual work
+alwaysApply: true
+---
+
+# Visual direction
+
+This site is a **cassette-futurist** electronics catalog, not a celestial editorial portfolio and not generic “retro.”
+
+Before changing UI, layout, type, color, or decorative assets, read [docs/aesthetic.md](docs/aesthetic.md).
+
+Keep the information architecture and motion (nav, loader, curtain, scramble, recorder, theme toggle, tiles, case-study bands). Restyle only the skin unless the user asks to change structure.
+
+Do not introduce synthwave neon, vaporwave, Y2K chrome, glassmorphism, soft drop shadows, or sky/sun/moon hero art.
