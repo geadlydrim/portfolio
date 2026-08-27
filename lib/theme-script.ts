@@ -1,0 +1,1 @@
+export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');var n=t==='night'||(t!=='day'&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(n){document.documentElement.setAttribute('data-theme','night');document.documentElement.classList.add('night');}else{document.documentElement.setAttribute('data-theme','day');}}catch(e){}})();`;
