@@ -2,9 +2,9 @@ import { funFacts } from "@/content/experience";
 
 export function FunFacts() {
   return (
-    <section className="about-fun" aria-label="Fun facts" data-nav="light">
+    <section className="about-fun" aria-label="Off the grid" data-nav="light">
       <p className="t-eyebrow" style={{ marginBottom: 24 }}>
-        Off the clock
+        Off the grid
       </p>
       <div className="fun-grid">
         {funFacts.map((f) => (

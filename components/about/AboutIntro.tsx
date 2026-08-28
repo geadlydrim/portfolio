@@ -1,9 +1,9 @@
 import { site } from "@/content/site";
 
 const polaroids = [
-  "https://images.unsplash.com/photo-1500530855697-b971d8d7b82c?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80",
+  "/about-polaroid-1.jpg",
+  "/about-polaroid-2.jpg",
+  "/about-polaroid-3.jpg",
 ];
 
 export function AboutIntro() {

@@ -41,7 +41,7 @@ export function Hero() {
               <Letters text={scrambled} />
             </span>
             <span className="h-line designer" aria-hidden="true">
-              <span className="roll" style={{ transform: `translateY(-${roll * 1.05}em)` }}>
+              <span className="roll" style={{ transform: `translateY(calc(${roll} * var(--roll-h) * -1))` }}>
                 {site.heroRoll.map((word) => (
                   <span className="roll-word" key={word}>
                     <Letters text={word} />

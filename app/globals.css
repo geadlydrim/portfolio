@@ -914,9 +914,10 @@ button {
   margin: 0;
 }
 .h-line.designer {
+  --roll-h: 1.12em;
   overflow: hidden;
-  height: 1.05em;
-  line-height: 1.05;
+  height: var(--roll-h);
+  line-height: var(--roll-h);
   margin-left: 12%;
   margin-top: 0.04em;
   color: var(--c-slate);
@@ -926,8 +927,10 @@ button {
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .h-line.designer .roll-word {
-  display: block;
-  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  height: var(--roll-h);
+  line-height: 1;
 }
 .h-letter {
   display: inline-block;
@@ -1135,7 +1138,7 @@ button {
   align-items: center;
   gap: 72px;
   width: max-content;
-  animation: logo-scroll 24s linear infinite;
+  animation: logo-scroll 96s linear infinite;
 }
 .logo-marquee-inner:hover {
   animation-play-state: paused;
@@ -1177,10 +1180,12 @@ button {
   box-shadow: var(--hard-shadow);
   transform: translate(-2px, -2px);
 }
-.project-tile img {
+.project-tile img,
+.project-tile video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  pointer-events: none;
 }
 .project-tile.tile-wide {
   width: 59.39%;
@@ -1259,15 +1264,44 @@ button {
 }
 .t-stage {
   position: relative;
-  max-width: 820px;
+  max-width: 920px;
   margin: 0 auto;
+  --t-photo: 144px;
+  --t-overlap: 24px;
+}
+.t-unit {
+  position: relative;
+  padding-left: calc(var(--t-photo) - var(--t-overlap));
+  padding-top: 18px;
+}
+.t-portrait {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: var(--t-photo);
+  height: var(--t-photo);
+  background: var(--c-cream);
+  border: 2px solid var(--c-ink);
+  border-radius: 6px;
+  box-shadow: var(--hard-shadow);
+  padding: 6px;
+  box-sizing: border-box;
+}
+.t-portrait img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
 }
 .t-card {
   background: var(--c-cream);
+  color: var(--c-ink);
   border: 2px solid var(--c-ink);
   box-shadow: var(--hard-shadow);
   border-radius: 6px;
-  padding: 40px 44px;
+  padding: 40px 44px 36px 52px;
   min-height: 240px;
 }
 .t-quote {
@@ -1276,22 +1310,10 @@ button {
   line-height: 1.45;
   letter-spacing: -0.02em;
 }
-.t-who {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 28px;
-}
-.t-who img {
-  width: 48px;
-  height: 48px;
-  border-radius: 4px;
-  border: 2px solid var(--c-ink);
-  object-fit: cover;
-}
 .t-meta {
   font-size: 14px;
   opacity: 0.8;
+  margin-top: 28px;
 }
 .t-nav {
   display: flex;
@@ -1927,11 +1949,20 @@ button {
 }
 .cs-meta {
   display: flex;
+  flex-wrap: wrap;
   gap: 32px;
   font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   opacity: 0.7;
+}
+.cs-meta a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+}
+.cs-meta a:hover {
+  border-bottom-color: currentColor;
 }
 .cs-hero-mock {
   border-radius: 28px;
@@ -2143,6 +2174,22 @@ button {
   .about-fun {
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .t-stage {
+    --t-photo: 104px;
+    --t-overlap: 22px;
+  }
+  .t-unit {
+    padding-left: 0;
+    padding-top: calc(var(--t-photo) - var(--t-overlap));
+  }
+  .t-portrait {
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+  .t-card {
+    padding: 52px 24px 32px;
   }
   .ai-content {
     flex-direction: column;

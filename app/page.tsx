@@ -14,7 +14,7 @@ export default function HomePage() {
         <IntroStatement />
       </section>
       <section className="featured-work" id="work" data-nav="light">
-        <h2 className="featured-heading">Selected work.</h2>
+        <h2 className="featured-heading">Some of my work.</h2>
         <FeaturedOn />
         <ProjectTiles />
       </section>

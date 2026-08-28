@@ -7,42 +7,32 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    years: "2024 — now",
-    title: "Lead Product Designer",
-    company: "Northstar Labs",
+    years: "Jun 2026 — now",
+    title: "RPA & Scripting Freelancer",
+    company: "TikTok Engagement & Advertising",
     summary:
-      "Owning the design system and flagship generative product from first prototype through launch.",
+      "Engineered RPA workflows, credential parsers, async OTP scrapers, and UI bots to scale content distribution and cut manual account work. Worked with project managers on high-volume automated deployments.",
   },
   {
-    years: "2021 — 2024",
-    title: "Product Designer",
-    company: "Harbor",
+    years: "Jun — Jul 2023",
+    title: "Work Immersion",
+    company: "Valenzuela Alert Center IT Office",
     summary:
-      "Redesigned a live billing surface used by operators on the show floor. Motion, density, contrast.",
-  },
-  {
-    years: "2018 — 2021",
-    title: "Designer",
-    company: "Atelier Studio",
-    summary:
-      "Brand, web, and a handful of shipped apps for early-stage teams who needed a designer that could code.",
+      "IT support in a municipal facility: helpdesk tickets, hardware diagnostics and component replacement, network troubleshooting, and technical documentation to keep departmental workstations running.",
   },
 ];
 
 export const funFacts = [
   {
-    title: "Weekends on a ridge",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+    title: "Networking events",
+    image: "/fun-networking.jpg",
   },
   {
-    title: "Sketching in the margins",
-    image:
-      "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80",
+    title: "Touching grass",
+    image: "/fun-grass.jpg",
   },
   {
-    title: "Too many cameras",
-    image:
-      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80",
+    title: "Underground music",
+    image: "/fun-music.jpg",
   },
 ];

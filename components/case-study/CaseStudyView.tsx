@@ -6,13 +6,13 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
   return (
     <article className="cs-page" style={{ ["--cs-accent" as string]: study.accent }}>
       {study.bands.map((band, i) => (
-        <BandBlock key={i} band={band} />
+        <BandBlock key={i} band={band} repo={study.repo} />
       ))}
     </article>
   );
 }
 
-function BandBlock({ band }: { band: Band }) {
+function BandBlock({ band, repo }: { band: Band; repo?: string }) {
   if (band.type === "hero") {
     return (
       <section className={`cs-band ${band.tone} cs-hero`} data-nav={band.tone === "dark" ? "dark" : "light"}>
@@ -33,6 +33,11 @@ function BandBlock({ band }: { band: Band }) {
               <span>Role · {band.role}</span>
               <span>Client · {band.client}</span>
               <span>{band.year}</span>
+              {repo ? (
+                <a href={repo} target="_blank" rel="noopener noreferrer">
+                  Repo · GitHub
+                </a>
+              ) : null}
             </div>
           </div>
           <div className="cs-hero-mock">

@@ -33,12 +33,12 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
+    default: "Keanu Agustin - Software Developer",
+    template: "%s — Keanu Agustin",
   },
   description: site.intro.lead,
   openGraph: {
-    title: `${site.name} — ${site.role}`,
+    title: "Keanu Agustin - Software Developer",
     description: site.intro.lead,
     type: "website",
   },

@@ -1,5 +1,61 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { projects } from "@/content/projects";
+
+function isVideoSrc(src: string) {
+  return /\.(mp4|webm|ogg)(\?.*)?$/i.test(src);
+}
+
+function TileVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const playAtRegularSpeed = () => {
+      el.defaultPlaybackRate = 1;
+      el.playbackRate = 1;
+      void el.play();
+    };
+
+    const loopFromStart = () => {
+      el.currentTime = 0;
+      playAtRegularSpeed();
+    };
+
+    el.addEventListener("loadeddata", playAtRegularSpeed);
+    el.addEventListener("ended", loopFromStart);
+    playAtRegularSpeed();
+
+    return () => {
+      el.removeEventListener("loadeddata", playAtRegularSpeed);
+      el.removeEventListener("ended", loopFromStart);
+    };
+  }, [src]);
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      muted
+      loop
+      playsInline
+      autoPlay
+      preload="auto"
+      aria-hidden
+    />
+  );
+}
+
+function TileCover({ src }: { src: string }) {
+  if (isVideoSrc(src)) {
+    return <TileVideo src={src} />;
+  }
+  return <img src={src} alt="" />;
+}
 
 export function ProjectTiles() {
   const rows: (typeof projects)[] = [];
@@ -18,7 +74,7 @@ export function ProjectTiles() {
               className={`project-tile ${p.wide ? "tile-wide" : "tile-narrow"}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.cover} alt="" />
+              <TileCover src={p.cover} />
               <span className="tile-overlay">
                 <span className="tile-overlay-title">{p.title}</span>
                 <span className="tile-overlay-subtitle">{p.subtitle}</span>
