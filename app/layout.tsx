@@ -37,6 +37,10 @@ export const metadata: Metadata = {
     template: "%s — Keanu Agustin",
   },
   description: site.intro.lead,
+  icons: {
+    icon: [{ url: "/avatar.jpg?v=2", type: "image/jpeg" }],
+    apple: "/avatar.jpg?v=2",
+  },
   openGraph: {
     title: "Keanu Agustin - Software Developer",
     description: site.intro.lead,

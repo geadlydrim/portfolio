@@ -64,7 +64,7 @@ export const site = {
     "OpenCV",
   ],
   audioSrc: "",
-  avatar: "/avatar.jpg",
+  avatar: "/avatar.jpg?v=2",
 } as const;
 
 export type Site = typeof site;
