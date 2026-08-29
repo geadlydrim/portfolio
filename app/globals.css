@@ -1599,6 +1599,25 @@ button {
   background: var(--c-gold);
   color: var(--c-ink);
 }
+.cd-submit:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.cd-error {
+  margin-top: 14px;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-red);
+}
+.cd-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 .cd-alt {
   background: var(--surface-raised);
   padding: 28px var(--cd-pad-x) 40px;
