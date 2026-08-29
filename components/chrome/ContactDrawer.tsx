@@ -3,10 +3,13 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { useContact } from "@/lib/contact";
+import { sendContact } from "@/lib/send-contact";
 
 export function ContactDrawer() {
   const { open, setOpen } = useContact();
   const [sent, setSent] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const first = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -16,6 +19,7 @@ export function ContactDrawer() {
       if (e.key === "Escape") {
         setOpen(false);
         setSent(false);
+        setError(null);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -28,11 +32,19 @@ export function ContactDrawer() {
   function close() {
     setOpen(false);
     setSent(false);
+    setError(null);
+    setPending(false);
   }
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSent(true);
+    if (pending) return;
+    setPending(true);
+    setError(null);
+    const result = await sendContact(new FormData(e.currentTarget));
+    setPending(false);
+    if (result.ok) setSent(true);
+    else setError(result.error);
   }
 
   return (
@@ -64,6 +76,14 @@ export function ContactDrawer() {
               </h2>
               <p className="cd-intro">{site.contact.intro}</p>
               <form onSubmit={onSubmit}>
+                <input
+                  className="cd-honeypot"
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
                 <div className="cd-field">
                   <label htmlFor="cd-name">Name</label>
                   <input ref={first} id="cd-name" name="name" required autoComplete="name" />
@@ -76,9 +96,14 @@ export function ContactDrawer() {
                   <label htmlFor="cd-msg">Brief</label>
                   <textarea id="cd-msg" name="message" rows={4} required />
                 </div>
-                <button className="cd-submit" type="submit">
-                  Cue it
+                <button className="cd-submit" type="submit" disabled={pending}>
+                  {pending ? "Cueing…" : "Cue it"}
                 </button>
+                {error ? (
+                  <p className="cd-error" role="alert">
+                    {error}
+                  </p>
+                ) : null}
               </form>
             </div>
             <div className="cd-alt">

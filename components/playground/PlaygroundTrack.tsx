@@ -32,9 +32,11 @@ export function PlaygroundTrack() {
       </header>
 
       <div className="pgf-stage" id="pgf-stage">
-        <button className="pgf-arrow pgf-arrow--prev" type="button" onClick={prev} aria-label="Previous">
-          ‹
-        </button>
+        {n > 1 ? (
+          <button className="pgf-arrow pgf-arrow--prev" type="button" onClick={prev} aria-label="Previous">
+            ‹
+          </button>
+        ) : null}
         <div className="pgf-track" id="pgf-track">
           {playground.map((item, idx) => {
             let d = idx - i;
@@ -62,9 +64,11 @@ export function PlaygroundTrack() {
             );
           })}
         </div>
-        <button className="pgf-arrow pgf-arrow--next" type="button" onClick={next} aria-label="Next">
-          ›
-        </button>
+        {n > 1 ? (
+          <button className="pgf-arrow pgf-arrow--next" type="button" onClick={next} aria-label="Next">
+            ›
+          </button>
+        ) : null}
       </div>
 
       <div className="pgf-caption" id="pgf-caption">
