@@ -19,7 +19,8 @@ export function SiteFooter() {
         <p className="ft-sub reveal is-in">{site.footer.sub}</p>
         <h2 className="ft-head">
           <button className="ft-head-btn" type="button" onClick={() => setOpen(true)}>
-            {site.footer.headline}
+            <span className="ft-head-line">{site.footer.headline}</span>
+            <span className="ft-head-cue">{site.footer.subtitle}</span>
           </button>
         </h2>
       </div>
