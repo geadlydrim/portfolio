@@ -72,22 +72,36 @@ function Letters({ text }: { text: string }) {
 function Recorder() {
   const { playing, progress, duration, toggle, seek } = useMusic();
   const slider = useRef<HTMLDivElement>(null);
-  const pct = duration ? (progress / duration) * 100 : 0;
+  const pct = duration > 0 ? Math.min(100, Math.max(0, (progress / duration) * 100)) : 0;
 
-  function onPointer(e: React.PointerEvent) {
+  function seekFromEvent(e: React.PointerEvent) {
     const el = slider.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    seek((e.clientX - rect.left) / rect.width);
+    const ratio = rect.width ? (e.clientX - rect.left) / rect.width : 0;
+    seek(ratio);
+  }
+
+  function onPointerDown(e: React.PointerEvent) {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    seekFromEvent(e);
+  }
+
+  function onPointerMove(e: React.PointerEvent) {
+    if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
+    seekFromEvent(e);
   }
 
   return (
     <div className="recorder" role="region" aria-label="Audio player">
       <div className={`disk${playing ? " spinning" : ""}`} aria-hidden="true">
-        <span className="disk-label">A</span>
+        <span className="disk-label disk-art">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={site.audioArt} alt="" />
+        </span>
       </div>
       <div className="recorder-body">
-        <div className="recorder-title">Side A · design journey</div>
+        <div className="recorder-title">{site.audioTitle}</div>
         <div className="play-row">
           <button className="play-btn" type="button" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>
             {playing ? (
@@ -109,17 +123,85 @@ function Recorder() {
             aria-valuemax={100}
             aria-valuenow={Math.round(pct)}
             tabIndex={0}
-            onPointerDown={onPointer}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
           >
             <div className="slider-fill" style={{ width: `${pct}%` }} />
             <div className="slider-knob" style={{ left: `${pct}%` }} />
           </div>
         </div>
       </div>
-      <div className={`disk${playing ? " spinning" : ""}`} aria-hidden="true">
-        <span className="disk-label">B</span>
-      </div>
+      <VolumeKnob />
     </div>
+  );
+}
+
+function VolumeKnob() {
+  const { volume, setVolume } = useMusic();
+  const drag = useRef({ y: 0, vol: 0 });
+  const deg = -135 + volume * 270;
+  const ticks = Array.from({ length: 11 }, (_, i) => -135 + i * 27);
+
+  function onPointerDown(e: React.PointerEvent<HTMLButtonElement>) {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    drag.current = { y: e.clientY, vol: volume };
+  }
+
+  function onPointerMove(e: React.PointerEvent<HTMLButtonElement>) {
+    if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
+    setVolume(drag.current.vol - (e.clientY - drag.current.y) / 90);
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
+    if (e.key === "ArrowUp" || e.key === "ArrowRight") {
+      e.preventDefault();
+      setVolume(volume + 0.08);
+    } else if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      setVolume(volume - 0.08);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setVolume(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setVolume(1);
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      className="vol-knob"
+      aria-label="Volume"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(volume * 100)}
+      role="slider"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onKeyDown={onKeyDown}
+    >
+      <svg className="vol-knob-ticks" viewBox="0 0 72 72" aria-hidden="true">
+        {ticks.map((angle) => (
+          <line
+            key={angle}
+            x1="36"
+            y1="6"
+            x2="36"
+            y2="11"
+            transform={`rotate(${angle} 36 36)`}
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="square"
+          />
+        ))}
+      </svg>
+      <span className="vol-knob-dial" style={{ transform: `rotate(${deg}deg)` }}>
+        <span className="vol-knob-pointer" />
+        <span className="vol-knob-hub" />
+      </span>
+      <span className="vol-knob-label">VOL</span>
+    </button>
   );
 }
 

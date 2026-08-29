@@ -63,7 +63,10 @@ export const site = {
     "SQL/NoSQL",
     "OpenCV",
   ],
-  audioSrc: "",
+  audioSrc: "/audio/mineral-serenading.mp3?v=2",
+  audioDuration: 324.62,
+  audioTitle: "Side A · Mineral — &Serenading",
+  audioArt: "/audio/endserenading.jpg",
   avatar: "/avatar.jpg?v=2",
 } as const;
 
