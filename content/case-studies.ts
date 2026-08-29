@@ -101,8 +101,7 @@ export const tinigTuro: CaseStudy = {
     {
       type: "quote",
       tone: "cream",
-      quote: "What a sound is, and where it’s coming from.",
-      attribution: "Tinig-Turo README · Project Kensho",
+      quote: "The pipeline names the sound and points to it — on the phone, with no server in the loop.",
     },
     {
       type: "panel",
@@ -166,7 +165,7 @@ export const commuteNity: CaseStudy = {
       role: "Software Engineer",
       client: "Independent",
       year: "2026",
-      image: "/work/commutenity-hero.png",
+      image: "/work/commutenity-hero.png?v=2",
     },
     {
       type: "panel",
@@ -189,8 +188,7 @@ export const commuteNity: CaseStudy = {
     {
       type: "quote",
       tone: "cream",
-      quote: "Find jeepney routes, stops, and fares — contributed by riders like you.",
-      attribution: "CommuteNity-Web landing",
+      quote: "Jeepneys and UV routes live in riders’ heads. Maps never got the memo.",
     },
     {
       type: "panel",
@@ -200,16 +198,16 @@ export const commuteNity: CaseStudy = {
       heading: "Ask the route,",
       italic: "pin it, answer it",
       body: "A public feed of commute questions. Each post can carry an ordered pin list — origin, waypoints, destination — rendered as a static map in the feed and an interactive MapLibre view in focus. Replies can attach their own maps. Votes and comments decide which answer to trust.",
-      image: "/work/commutenity-post.png",
+      image: "/work/commutenity-post.png?v=2",
     },
     {
       type: "gallery",
       tone: "dark",
       heading: "Landing, a pinned commute, sign-in",
       images: [
-        "/work/commutenity-hero.png",
-        "/work/commutenity-post.png",
-        "/work/commutenity-signin.png",
+        "/work/commutenity-hero.png?v=2",
+        "/work/commutenity-post.png?v=2",
+        "/work/commutenity-signin.png?v=2",
       ],
     },
     {
@@ -220,7 +218,7 @@ export const commuteNity: CaseStudy = {
       heading: "Supabase for the community.",
       italic: "Maps stay free",
       body: "Email plus Google OAuth through Supabase SSR cookies. Postgres with RLS so anyone can read and only authors write. Map tiles are OpenStreetMap — no paid map SDK. Dexie caches recently viewed routes for offline browsing; next-pwa makes the app installable.",
-      image: "/work/commutenity-signin.png",
+      image: "/work/commutenity-signin.png?v=2",
     },
     {
       type: "logoband",
@@ -278,8 +276,7 @@ export const stellar4: CaseStudy = {
     {
       type: "quote",
       tone: "cream",
-      quote: "Play Stellar4, then list items on Stellar4 Marketplace — without rewriting the game.",
-      attribution: "stellar-payment-dapp README",
+      quote: "One game, one market. An item is in play or on-chain — never both.",
     },
     {
       type: "panel",
@@ -324,7 +321,95 @@ export const stellar4: CaseStudy = {
       italic: "stellar-4.vercel.app",
       body: "Source, contracts, and CI live in stellar-payment-dapp. The demo is on Stellar testnet — a second funded Freighter wallet is required to buy, bid, or offer. There is no on-chain demo-buy shortcut.",
     },
-    { type: "readnext", slug: "lumen" },
+    { type: "readnext", slug: "tiktok-automate" },
+  ],
+};
+
+export const tiktokAutomate: CaseStudy = {
+  slug: "tiktok-automate",
+  title: "TikTok Automate",
+  accent: "#4a86ad",
+  repo: "https://github.com/geadlydrim/tiktok-automate",
+  bands: [
+    {
+      type: "hero",
+      tone: "cream",
+      kicker: "RPA · LOCAL TOOLKIT · 2026",
+      title: "TikTok Automate",
+      italic: "the repetitive parts, gone",
+      body: "A local toolkit for operating a batch of TikTok accounts across social-media schedulers. It cuts the busywork of onboarding — credentials, emailed codes, OAuth connect, and uploading the same media set — without a remote backend of its own.",
+      role: "Software Engineer",
+      client: "TikTok Engagement & Advertising",
+      year: "2026",
+      image: "/work/tiktok-automate-hero.jpg",
+    },
+    {
+      type: "panel",
+      tone: "cream",
+      number: "01",
+      eyebrow: "THE SHAPE",
+      heading: "Small pieces,",
+      italic: "not one app",
+      body: "A Tkinter desktop app, five Firefox extensions, and a handful of shell scripts. Nothing phones home. The only listener is a loopback HTTP server on 127.0.0.1:8765 so an extension can hand verification codes to the desktop window.",
+      note: {
+        label: "In the repo",
+        items: [
+          "Desktop app: queue, clipboard, codes",
+          "Five Manifest V2 Firefox extensions",
+          "Multi-profile Firefox launcher",
+          "ffmpeg batch for scheduler-safe video",
+        ],
+      },
+    },
+    {
+      type: "quote",
+      tone: "cream",
+      quote: "The batch work never leaves the machine: credentials, codes, connect, then publish.",
+    },
+    {
+      type: "panel",
+      tone: "dark",
+      number: "02",
+      eyebrow: "THE RUN",
+      heading: "Paste a batch.",
+      italic: "The clipboard keeps up",
+      body: "Paste accounts into the desktop app. It parses them and feeds the next username, password, or code to the clipboard on each paste. kuku-code-watcher scrapes verification emails and POSTs them to the app. tiktok-connect drives Connect → Authorize → Confirm. Publish goes through VistaSocial in the browser or Buffer via the mass-post runbook.",
+      image: "/work/tiktok-automate-01.jpg",
+    },
+    {
+      type: "gallery",
+      tone: "dark",
+      heading: "The local run",
+      images: [
+        "/work/tiktok-automate-hero.jpg",
+        "/work/tiktok-automate-01.jpg",
+        "/work/tiktok-automate-02.jpg",
+      ],
+    },
+    {
+      type: "panel",
+      tone: "cream",
+      number: "03",
+      eyebrow: "THE CATCH",
+      heading: "Selectors break.",
+      italic: "Setup is the repair path",
+      body: "These extensions automate specific pages by CSS selector, so a redesign will break them. Every extension has a Setup panel for re-picking selectors without touching code. VistaSocial and Buffer are the maintained paths. Meant for accounts you own or are authorised to manage.",
+      image: "/work/tiktok-automate-02.jpg",
+    },
+    {
+      type: "logoband",
+      tone: "cream",
+      label: "In the stack",
+      logos: ["Python", "Tkinter", "Firefox", "Bash", "ffmpeg"],
+    },
+    {
+      type: "closing",
+      tone: "cream",
+      heading: "Local only.",
+      italic: "No remote service of its own",
+      body: "Source lives in tiktok-automate. Linux-first, developed on Fedora. Keep real account data out of the repo — input.txt is git-ignored on purpose.",
+    },
+    { type: "readnext", slug: "tinig-turo" },
   ],
 };
 
@@ -394,6 +479,7 @@ export const caseStudies: Record<string, CaseStudy> = {
   "tinig-turo": tinigTuro,
   commutenity: commuteNity,
   stellar4,
+  "tiktok-automate": tiktokAutomate,
   lumen,
 };
 
