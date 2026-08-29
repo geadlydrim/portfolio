@@ -27,6 +27,7 @@ export const site = {
   footer: {
     sub: "From early concepts to refined experiences, I help ambitious teams build products that earn trust, move quickly, and drive growth.",
     headline: "Press play on the next idea",
+    subtitle: "Contact me",
     credit: "Created by Keanu Agustin",
   },
   contact: {
