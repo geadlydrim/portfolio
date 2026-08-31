@@ -3,6 +3,12 @@
 import { useState } from "react";
 import { testimonials } from "@/content/testimonials";
 
+function initials(name: string) {
+  const parts = name.split(" ").filter(Boolean);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+}
+
 export function Testimonials() {
   const [i, setI] = useState(0);
   const t = testimonials[Math.min(i, testimonials.length - 1)] ?? testimonials[0];
@@ -19,8 +25,14 @@ export function Testimonials() {
       <div className="t-stage">
         <div className="t-unit" key={t.name}>
           <div className="t-portrait">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={t.portrait} alt="" />
+            {t.portrait ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={t.portrait} alt="" />
+            ) : (
+              <span className="t-initials" aria-hidden="true">
+                {initials(t.name)}
+              </span>
+            )}
           </div>
           <article className="t-card">
             <p className="t-quote">“{t.quote}”</p>
