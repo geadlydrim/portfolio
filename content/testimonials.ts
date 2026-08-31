@@ -3,7 +3,7 @@ export type Testimonial = {
   name: string;
   role: string;
   company: string;
-  portrait: string;
+  portrait?: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -22,6 +22,14 @@ export const testimonials: Testimonial[] = [
     role: "Logistics",
     company: "Project Kensho - Thesis",
     portrait: "/testimonial-chan.png",
+  },
+  {
+    quote:
+      "I remember Keanu as the guy who always found the idea nobody else on the team thought of. He handled our frontend, optimizations, and maintenance for Tinig-Turo. He has that creative streak where he looks at a problem everyone else already accepted and finds a better way through it. He’s very easy to work with and always willing to help out. What really got me was watching him present at FEU Tech Colloquium 2026 with barely any prep time and still pull it off like he’d rehearsed it for weeks. Hardworking, creative, and someone I’d genuinely want on any team again.",
+    name: "John Rainier Valencia",
+    role: "Developer",
+    company: "Project Kensho - Thesis",
+    portrait: "/testimonial-valencia.jpg",
   },
   // Hidden placeholders — restore when real quotes land.
   // {
