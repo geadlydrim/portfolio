@@ -30,6 +30,12 @@ export const playground: PlayItem[] = [
     desc: "Snake, done in full assembly. An exercise to understand low-level programming — registers, syscalls, and what the machine is actually doing.",
     image: "/playground/syscall-snake.jpg",
   },
+  {
+    title: "Studio Rig",
+    tags: ["Roblox Studio", "Lua"],
+    desc: "Roblox Studio notes: script the input in Lua, keyframe the rig. An experiment in making a character move.",
+    image: "/playground/studio-rig.jpg",
+  },
   // Hidden for now — restore when more studies land.
   // {
   //   title: "Ribbon field",
