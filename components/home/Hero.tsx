@@ -213,9 +213,6 @@ function Knob({ className, tone }: { className: string; tone: "day" | "night" })
       <circle cx="100" cy="100" r="48" fill="#fcfaf0" stroke="#2b2b2b" strokeWidth="5" />
       <circle cx="100" cy="100" r="10" fill="#2b2b2b" />
       <line x1="100" y1="58" x2="100" y2="78" stroke="#2b2b2b" strokeWidth="6" strokeLinecap="square" />
-      <text x="100" y="178" textAnchor="middle" fill="#2b2b2b" fontSize="14" fontFamily="monospace">
-        {tone === "day" ? "DAY" : "NITE"}
-      </text>
     </svg>
   );
 }
