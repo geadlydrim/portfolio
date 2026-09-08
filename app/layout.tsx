@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Archivo, Barlow_Condensed, IBM_Plex_Mono, Libre_Bodoni } from "next/font/google";
+import Script from "next/script";
 import { AppChrome } from "@/components/chrome/AppChrome";
 import { site } from "@/content/site";
+import { GA_MEASUREMENT_ID, GA_SCRIPT } from "@/lib/analytics";
 import { THEME_SCRIPT } from "@/lib/theme-script";
 import "./globals.css";
 
@@ -57,10 +59,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
       </head>
       <body className="min-h-full">
         <AppChrome>{children}</AppChrome>
       </body>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+      />
     </html>
   );
 }
