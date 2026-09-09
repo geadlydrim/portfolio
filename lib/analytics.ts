@@ -1,13 +1,12 @@
-export const GA_MEASUREMENT_ID = "G-LCFE000RDX";
+export const GTM_CONTAINER_ID = "GTM-P3K9PR7K";
 
-// Runs inline in <head> so window.gtag exists before hydration effects fire.
-// Page views are sent manually by RouteAnalytics, hence send_page_view:false.
-export const GA_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}',{send_page_view:false});`;
+// Runs inline in <head> so window.dataLayer exists before hydration effects fire.
+// GA4 config/event tags live in the GTM container, not here.
+export const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`;
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -15,7 +14,8 @@ type Params = Record<string, string | number | boolean | undefined>;
 
 export function trackEvent(name: string, params?: Params) {
   if (typeof window === "undefined") return;
-  window.gtag?.("event", name, params);
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: name, ...params });
 }
 
 export type ContentGroup = "home" | "about" | "playground" | "case-study" | "other";

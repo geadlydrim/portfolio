@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Archivo, Barlow_Condensed, IBM_Plex_Mono, Libre_Bodoni } from "next/font/google";
-import Script from "next/script";
 import { AppChrome } from "@/components/chrome/AppChrome";
 import { site } from "@/content/site";
-import { GA_MEASUREMENT_ID, GA_SCRIPT } from "@/lib/analytics";
+import { GTM_CONTAINER_ID, GTM_SCRIPT } from "@/lib/analytics";
 import { THEME_SCRIPT } from "@/lib/theme-script";
 import "./globals.css";
 
@@ -48,6 +47,9 @@ export const metadata: Metadata = {
     description: site.intro.lead,
     type: "website",
   },
+  verification: {
+    google: "2a_iBLRBFE_Ycckj9wByholEldKvQMrYcoOXgCXqW4s",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -59,15 +61,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-        <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }} />
       </head>
       <body className="min-h-full">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <AppChrome>{children}</AppChrome>
       </body>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
-      />
     </html>
   );
 }
