@@ -2,6 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { playground } from "@/content/playground";
+import { startActiveTimer, trackEvent } from "@/lib/analytics";
+
+// Below this, the visitor was arrowing past the card rather than looking at it.
+const MIN_DWELL_MS = 1_000;
 
 export function PlaygroundTrack() {
   const [i, setI] = useState(0);
@@ -22,6 +26,26 @@ export function PlaygroundTrack() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [next, prev]);
+
+  // Entries are cards on one route, so per-entry attention needs its own event.
+  // The timer keeps running while the lightbox is open, so dwell covers both.
+  useEffect(() => {
+    const { title } = playground[i];
+    const timer = startActiveTimer();
+    return () => {
+      const dwell = timer.stop();
+      if (dwell < MIN_DWELL_MS) return;
+      trackEvent("playground_view", {
+        item_title: title,
+        dwell_seconds: Math.round(dwell / 1000),
+      });
+    };
+  }, [i]);
+
+  useEffect(() => {
+    if (!open) return;
+    trackEvent("playground_expand", { item_title: playground[i].title });
+  }, [open, i]);
 
   return (
     <section className="pg-flow" aria-label="Playground — motion and 3D experiments" data-nav="light">

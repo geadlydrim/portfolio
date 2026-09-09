@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/lib/theme";
 import { ContactDrawer } from "@/components/chrome/ContactDrawer";
 import { DotCursor } from "@/components/chrome/DotCursor";
 import { PageLoader } from "@/components/chrome/PageLoader";
+import { RouteAnalytics } from "@/components/chrome/RouteAnalytics";
 import { RouteCurtain } from "@/components/chrome/RouteCurtain";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { SiteNav } from "@/components/chrome/SiteNav";
@@ -16,6 +17,7 @@ export function AppChrome({ children }: { children: ReactNode }) {
     <ThemeProvider>
       <MusicProvider>
         <ContactProvider>
+          <RouteAnalytics />
           <PageLoader />
           <RouteCurtain />
           <SiteNav />
