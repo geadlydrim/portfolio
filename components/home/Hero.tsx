@@ -17,14 +17,14 @@ export function Hero() {
   return (
     <section className="hero" data-nav="light">
       <div className="hero-shader" aria-hidden="true" />
-      <div className="hero-sky" aria-hidden="true" />
+      <div className="hero-slab" aria-hidden="true" />
       <div className="hero-burst" aria-hidden="true" />
       <div className="hero-noise" aria-hidden="true" />
       <div className="hero-content" id="hero-content">
-        <Knob className="sun-group" tone="day" />
-        <Knob className="moon-group" tone="night" />
-        <Reel className="hero-cloud cloud-a" />
-        <Reel className="hero-cloud cloud-b" />
+        <Knob className="knob-day" tone="day" />
+        <Knob className="knob-night" tone="night" />
+        <Reel className="hero-reel reel-a" />
+        <Reel className="hero-reel reel-b" />
         <div className="hero-copy">
           <p className="hero-eyebrow">
             <span className="hero-dot" aria-hidden="true" />
@@ -92,6 +92,20 @@ function Recorder() {
     seekFromEvent(e);
   }
 
+  function onKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault();
+      const delta = e.key === "ArrowRight" ? 5 : -5;
+      seek(Math.max(0, Math.min(1, (progress + delta) / duration)));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      seek(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      seek(1);
+    }
+  }
+
   return (
     <div className="recorder" role="region" aria-label="Audio player">
       <div className={`disk${playing ? " spinning" : ""}`} aria-hidden="true">
@@ -125,6 +139,7 @@ function Recorder() {
             tabIndex={0}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
+            onKeyDown={onKeyDown}
           >
             <div className="slider-fill" style={{ width: `${pct}%` }} />
             <div className="slider-knob" style={{ left: `${pct}%` }} />

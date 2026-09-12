@@ -12,9 +12,6 @@ export function SiteFooter() {
     <footer className="footer" id="contact" ref={ref} data-nav="light">
       <div className="ft-wavy" aria-hidden="true" />
       <div className="ft-land" aria-hidden="true" />
-      <div className="plane-fly" aria-hidden="true">
-        <PaperPlane />
-      </div>
       <div className="ft-inner">
         <p className="ft-sub reveal is-in">{site.footer.sub}</p>
         <h2 className="ft-head">
@@ -23,6 +20,9 @@ export function SiteFooter() {
             <span className="ft-head-cue">{site.footer.subtitle}</span>
           </button>
         </h2>
+        <a className="ft-email" href={`mailto:${site.email}`}>
+          {site.email}
+        </a>
       </div>
       <p className="ft-credit">
         {site.footer.credit} · {site.location}
@@ -38,10 +38,3 @@ export function SiteFooter() {
   );
 }
 
-function PaperPlane() {
-  return (
-    <svg className="plane-sprite" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <path d="M4 32 L60 8 L28 36 L24 56 L36 38 L60 8" fill="var(--trail-stroke)" />
-    </svg>
-  );
-}

@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { useContact } from "@/lib/contact";
+import { useFocusTrap } from "@/lib/use-focus-trap";
 import { sendContact } from "@/lib/send-contact";
 
 export function ContactDrawer() {
@@ -10,24 +11,7 @@ export function ContactDrawer() {
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const first = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const t = window.setTimeout(() => first.current?.focus(), 80);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        setSent(false);
-        setError(null);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.clearTimeout(t);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open, setOpen]);
+  const drawerRef = useRef<HTMLElement>(null);
 
   function close() {
     setOpen(false);
@@ -35,6 +19,8 @@ export function ContactDrawer() {
     setError(null);
     setPending(false);
   }
+
+  useFocusTrap(open, drawerRef, close);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -51,6 +37,7 @@ export function ContactDrawer() {
     <>
         <div className={`contact-scrim${open ? " open" : ""}`} onClick={close} />
       <aside
+        ref={drawerRef}
         className={`contact-drawer${open ? " open" : ""}`}
         role="dialog"
         aria-modal="true"
@@ -86,7 +73,7 @@ export function ContactDrawer() {
                 />
                 <div className="cd-field">
                   <label htmlFor="cd-name">Name</label>
-                  <input ref={first} id="cd-name" name="name" required autoComplete="name" />
+                  <input id="cd-name" name="name" required autoComplete="name" />
                 </div>
                 <div className="cd-field">
                   <label htmlFor="cd-email">Email</label>

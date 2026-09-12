@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { useContact } from "@/lib/contact";
+import { useFocusTrap } from "@/lib/use-focus-trap";
 import { useMusic } from "@/lib/music";
 import { useNavContrast } from "@/lib/use-nav-contrast";
 import { useTheme } from "@/lib/theme";
@@ -12,12 +13,13 @@ import { useTheme } from "@/lib/theme";
 export function SiteNav() {
   const pathname = usePathname();
   const onDark = useNavContrast();
-  const { toggle } = useTheme();
+  const { theme, toggle } = useTheme();
   const { playing, toggle: toggleMusic } = useMusic();
   const { setOpen } = useContact();
   const [compact, setCompact] = useState(false);
   const [menu, setMenu] = useState(false);
   const [menuPath, setMenuPath] = useState(pathname);
+  const menuRef = useRef<HTMLDivElement>(null);
   const isCase = pathname.startsWith("/work/");
 
   if (pathname !== menuPath) {
@@ -30,6 +32,8 @@ export function SiteNav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useFocusTrap(menu, menuRef, () => setMenu(false));
 
   const navClass = [
     onDark ? "nav-on-dark" : "nav-on-light",
@@ -68,16 +72,33 @@ export function SiteNav() {
             </>
           ) : null}
           <div className="nav-links">
-            <Link href="/#work" className={`nav-link${pathname === "/" ? " active" : ""}`}>
+            <Link
+              href="/#work"
+              className={`nav-link${pathname === "/" ? " active" : ""}`}
+              aria-current={pathname === "/" ? "page" : undefined}
+            >
               Work
             </Link>
-            <Link href="/about" className={`nav-link${pathname === "/about" ? " active" : ""}`}>
+            <Link
+              href="/about"
+              className={`nav-link${pathname === "/about" ? " active" : ""}`}
+              aria-current={pathname === "/about" ? "page" : undefined}
+            >
               About
             </Link>
-            <Link href="/playground" className={`nav-link${pathname === "/playground" ? " active" : ""}`}>
+            <Link
+              href="/playground"
+              className={`nav-link${pathname === "/playground" ? " active" : ""}`}
+              aria-current={pathname === "/playground" ? "page" : undefined}
+            >
               Playground
             </Link>
-            <button type="button" className="nav-cta" onClick={() => setOpen(true)}>
+            <button
+              type="button"
+              className="nav-cta"
+              aria-label="Work with me"
+              onClick={() => setOpen(true)}
+            >
               <MailIcon />
               <span>Work with me</span>
             </button>
@@ -116,6 +137,8 @@ export function SiteNav() {
             className="day-toggle"
             type="button"
             aria-label="Toggle day / night theme"
+            aria-pressed={theme === "night"}
+            suppressHydrationWarning
             onClick={toggle}
           >
             <svg className="toggle-ico ico-sun" viewBox="0 0 24 24" aria-hidden="true">
@@ -138,23 +161,44 @@ export function SiteNav() {
         </div>
       </nav>
 
-      <div className={`menu-overlay${menu ? " open" : ""}`} role="dialog" aria-modal="true" aria-label="Menu">
+      <div
+        ref={menuRef}
+        className={`menu-overlay${menu ? " open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+      >
         <nav>
           <ul className="menu-links">
             <li>
-              <Link href="/#work" className="menu-link" onClick={() => setMenu(false)}>
+              <Link
+                href="/#work"
+                className={`menu-link${pathname === "/" ? " active" : ""}`}
+                aria-current={pathname === "/" ? "page" : undefined}
+                onClick={() => setMenu(false)}
+              >
                 <span className="num">01</span>
                 <span className="word">Work</span>
               </Link>
             </li>
             <li>
-              <Link href="/about" className="menu-link" onClick={() => setMenu(false)}>
+              <Link
+                href="/about"
+                className={`menu-link${pathname === "/about" ? " active" : ""}`}
+                aria-current={pathname === "/about" ? "page" : undefined}
+                onClick={() => setMenu(false)}
+              >
                 <span className="num">02</span>
                 <span className="word">About</span>
               </Link>
             </li>
             <li>
-              <Link href="/playground" className="menu-link" onClick={() => setMenu(false)}>
+              <Link
+                href="/playground"
+                className={`menu-link${pathname === "/playground" ? " active" : ""}`}
+                aria-current={pathname === "/playground" ? "page" : undefined}
+                onClick={() => setMenu(false)}
+              >
                 <span className="num">03</span>
                 <span className="word">Playground</span>
               </Link>

@@ -152,7 +152,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   return (
     <MusicContext.Provider value={value}>
       {site.audioSrc ? (
-        <audio ref={audioRef} id="audio" src={site.audioSrc} preload="auto" />
+        <audio ref={audioRef} id="audio" src={site.audioSrc} preload="none" />
       ) : (
         <audio ref={audioRef} id="audio" preload="none" />
       )}

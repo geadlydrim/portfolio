@@ -28,16 +28,21 @@ export function useNavContrast() {
       setOnDark(true);
     };
 
-    let id = 0;
-    const loop = () => {
-      sample();
-      id = window.setTimeout(loop, 80);
+    sample();
+    const rafRef = { current: 0 };
+    const scheduleSample = () => {
+      if (rafRef.current) return;
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = 0;
+        sample();
+      });
     };
-    loop();
-    window.addEventListener("resize", sample);
+    window.addEventListener("scroll", scheduleSample, { passive: true });
+    window.addEventListener("resize", scheduleSample, { passive: true });
     return () => {
-      window.clearTimeout(id);
-      window.removeEventListener("resize", sample);
+      if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("scroll", scheduleSample);
+      window.removeEventListener("resize", scheduleSample);
     };
   }, []);
 

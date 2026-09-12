@@ -12,6 +12,7 @@ export type Band =
       client: string;
       year: string;
       image: string;
+      alt?: string;
     }
   | {
       type: "panel";
@@ -22,6 +23,7 @@ export type Band =
       italic?: string;
       body: string;
       image?: string;
+      alt?: string;
       note?: { label: string; items: string[] };
     }
   | {
@@ -35,6 +37,7 @@ export type Band =
       tone: BandTone;
       heading?: string;
       images: string[];
+      imageAlts?: string[];
     }
   | {
       type: "logoband";
@@ -57,7 +60,7 @@ export type Band =
 export type CaseStudy = {
   slug: string;
   title: string;
-  accent: string;
+  accent: "coral" | "gold" | "slate";
   repo?: string;
   bands: Band[];
 };
@@ -65,7 +68,7 @@ export type CaseStudy = {
 export const tinigTuro: CaseStudy = {
   slug: "tinig-turo",
   title: "Tinig-Turo",
-  accent: "#fc9073",
+  accent: "coral",
   repo: "https://github.com/TadeyRuk/Tinig-Turo",
   bands: [
     {
@@ -79,6 +82,7 @@ export const tinigTuro: CaseStudy = {
       client: "FEU Institute of Technology",
       year: "2026",
       image: "/work/tinig-turo-hero.jpg",
+      alt: "Tinig-Turo home screen showing the sound radar and detected sound label.",
     },
     {
       type: "panel",
@@ -112,6 +116,7 @@ export const tinigTuro: CaseStudy = {
       italic: "one isolate, zero network",
       body: "Kotlin AudioRecord pulls raw UNPROCESSED stereo PCM. GCC-PHAT estimates direction from mic-pair TDOA. YAMNet classifies a one-second buffer. A fusion engine stamps priority, confidence, and a needs-attention flag. DSP stays off the UI thread so the radar can hold 120 Hz.",
       image: "/work/tinig-turo-01.jpg",
+      alt: "Tinig-Turo detection screen with directional radar pointing at an active sound source.",
     },
     {
       type: "gallery",
@@ -121,6 +126,11 @@ export const tinigTuro: CaseStudy = {
         "/work/tinig-turo-01.jpg",
         "/work/tinig-turo-02.jpg",
         "/work/tinig-turo-03.jpg",
+      ],
+      imageAlts: [
+        "Tinig-Turo detection screen with directional radar pointing at an active sound source.",
+        "Tinig-Turo settings screen listing sound classes and alert priorities.",
+        "Tinig-Turo sound class picker with search and category list.",
       ],
     },
     {
@@ -152,7 +162,7 @@ export const tinigTuro: CaseStudy = {
 export const commuteNity: CaseStudy = {
   slug: "commutenity",
   title: "CommuteNity",
-  accent: "#ff7a00",
+  accent: "coral",
   repo: "https://github.com/geadlydrim/CommuteNity-Web",
   bands: [
     {
@@ -166,6 +176,7 @@ export const commuteNity: CaseStudy = {
       client: "Independent",
       year: "2026",
       image: "/work/commutenity-hero.png?v=2",
+      alt: "CommuteNity landing page showing the commute feed and a pinned OpenStreetMap route.",
     },
     {
       type: "panel",
@@ -199,6 +210,7 @@ export const commuteNity: CaseStudy = {
       italic: "pin it, answer it",
       body: "A public feed of commute questions. Each post can carry an ordered pin list — origin, waypoints, destination — rendered as a static map in the feed and an interactive MapLibre view in focus. Replies can attach their own maps. Votes and comments decide which answer to trust.",
       image: "/work/commutenity-post.png?v=2",
+      alt: "CommuteNity feed post with an ordered pin list rendered on a map.",
     },
     {
       type: "gallery",
@@ -208,6 +220,11 @@ export const commuteNity: CaseStudy = {
         "/work/commutenity-hero.png?v=2",
         "/work/commutenity-post.png?v=2",
         "/work/commutenity-signin.png?v=2",
+      ],
+      imageAlts: [
+        "CommuteNity landing page showing the commute feed and a pinned OpenStreetMap route.",
+        "CommuteNity feed post with an ordered pin list rendered on a map.",
+        "CommuteNity sign-in screen with email and Google OAuth options.",
       ],
     },
     {
@@ -219,6 +236,7 @@ export const commuteNity: CaseStudy = {
       italic: "Maps stay free",
       body: "Email plus Google OAuth through Supabase SSR cookies. Postgres with RLS so anyone can read and only authors write. Map tiles are OpenStreetMap — no paid map SDK. Dexie caches recently viewed routes for offline browsing; next-pwa makes the app installable.",
       image: "/work/commutenity-signin.png?v=2",
+      alt: "CommuteNity sign-in screen with email and Google OAuth options.",
     },
     {
       type: "logoband",
@@ -240,7 +258,7 @@ export const commuteNity: CaseStudy = {
 export const stellar4: CaseStudy = {
   slug: "stellar4",
   title: "Stellar4",
-  accent: "#ffb900",
+  accent: "gold",
   repo: "https://github.com/geadlydrim/stellar-payment-dapp",
   bands: [
     {
@@ -254,6 +272,7 @@ export const stellar4: CaseStudy = {
       client: "Independent",
       year: "2026",
       image: "/work/stellar4-hero.png",
+      alt: "Stellar4 landing screen with Play and Marketplace entry points.",
     },
     {
       type: "panel",
@@ -287,6 +306,7 @@ export const stellar4: CaseStudy = {
       italic: "one settlement path",
       body: "item-nft handles mint, burn, transfer, and player self-mint. Auction escrows XLM then settles the NFT. Fixed-price and offer-board escrow the token, then call item-nft.transfer. Marketplace reloads listings after each action; Auction polls listActive every five seconds.",
       image: "/work/stellar4-play.png",
+      alt: "Stellar4 Play screen showing inventory items available to equip or export.",
     },
     {
       type: "gallery",
@@ -296,6 +316,11 @@ export const stellar4: CaseStudy = {
         "/work/stellar4-hero.png",
         "/work/stellar4-play.png",
         "/work/stellar4-market.png",
+      ],
+      imageAlts: [
+        "Stellar4 landing screen with Play and Marketplace entry points.",
+        "Stellar4 Play screen showing inventory items available to equip or export.",
+        "Stellar4 Marketplace screen listing NFT items for sale, auction, and offer.",
       ],
     },
     {
@@ -307,6 +332,7 @@ export const stellar4: CaseStudy = {
       italic: "and a green CI line",
       body: "Local default is mock adapters — no contract IDs required. Point NEXT_PUBLIC_MARKET_ADAPTER at stellar plus four C… IDs for testnet. Frontend tests cover registry, adapters, identity, and errors. Contracts run cargo test. GitHub Actions gates lint, typecheck, build, and both test suites.",
       image: "/work/stellar4-ci.png",
+      alt: "Stellar4 GitHub Actions CI run showing lint, typecheck, build, and test jobs passing.",
     },
     {
       type: "logoband",
@@ -328,7 +354,7 @@ export const stellar4: CaseStudy = {
 export const tiktokAutomate: CaseStudy = {
   slug: "tiktok-automate",
   title: "TikTok Automate",
-  accent: "#4a86ad",
+  accent: "slate",
   repo: "https://github.com/geadlydrim/tiktok-automate",
   bands: [
     {
@@ -342,6 +368,7 @@ export const tiktokAutomate: CaseStudy = {
       client: "TikTok Engagement & Advertising",
       year: "2026",
       image: "/work/tiktok-automate-hero.jpg",
+      alt: "TikTok Automate desktop app queue view alongside a browser window mid-automation.",
     },
     {
       type: "panel",
@@ -375,6 +402,7 @@ export const tiktokAutomate: CaseStudy = {
       italic: "The clipboard keeps up",
       body: "Paste accounts into the desktop app. It parses them and feeds the next username, password, or code to the clipboard on each paste. kuku-code-watcher scrapes verification emails and POSTs them to the app. tiktok-connect drives Connect → Authorize → Confirm. Publish goes through VistaSocial in the browser or Buffer via the mass-post runbook.",
       image: "/work/tiktok-automate-01.jpg",
+      alt: "TikTok Automate desktop app clipboard queue feeding a browser sign-in form.",
     },
     {
       type: "gallery",
@@ -384,6 +412,11 @@ export const tiktokAutomate: CaseStudy = {
         "/work/tiktok-automate-hero.jpg",
         "/work/tiktok-automate-01.jpg",
         "/work/tiktok-automate-02.jpg",
+      ],
+      imageAlts: [
+        "TikTok Automate desktop app queue view alongside a browser window mid-automation.",
+        "TikTok Automate desktop app clipboard queue feeding a browser sign-in form.",
+        "TikTok Automate Setup panel for re-picking a broken CSS selector.",
       ],
     },
     {
@@ -395,6 +428,7 @@ export const tiktokAutomate: CaseStudy = {
       italic: "Setup is the repair path",
       body: "These extensions automate specific pages by CSS selector, so a redesign will break them. Every extension has a Setup panel for re-picking selectors without touching code. VistaSocial and Buffer are the maintained paths. Meant for accounts you own or are authorised to manage.",
       image: "/work/tiktok-automate-02.jpg",
+      alt: "TikTok Automate Setup panel for re-picking a broken CSS selector.",
     },
     {
       type: "logoband",
@@ -413,74 +447,11 @@ export const tiktokAutomate: CaseStudy = {
   ],
 };
 
-export const lumen: CaseStudy = {
-  slug: "lumen",
-  title: "Lumen",
-  accent: "#4A9EFF",
-  bands: [
-    {
-      type: "hero",
-      tone: "cream",
-      kicker: "CASE STUDY · 2025",
-      title: "Lumen",
-      italic: "Dark, high-contrast, AI-first",
-      body: "A billing surface rebuilt for operators who glance, act, and move on. AI sits in reach, never in the way.",
-      role: "Product & Motion",
-      client: "Harbor",
-      year: "2025",
-      image:
-        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1800&q=80",
-    },
-    {
-      type: "panel",
-      tone: "cream",
-      number: "01",
-      eyebrow: "BEFORE",
-      heading: "Functional,",
-      italic: "but not showcase-ready",
-      body: "The live product worked. It also looked like every other dashboard from 2019: grey, even, forgettable. On a show floor it disappeared. We needed density without noise, and a presence that could hold a 4K display.",
-    },
-    {
-      type: "quote",
-      tone: "dark",
-      quote: "Convention was the thing we had to break.",
-    },
-    {
-      type: "panel",
-      tone: "dark",
-      number: "02",
-      eyebrow: "DIRECTION",
-      heading: "Glanceable data,",
-      italic: "AI in reach",
-      body: "A near-black ground. One accent. Type that holds at three metres. Prompts live in a tray you can ignore — until you need them. Small motions make the model feel responsive without turning the UI into a screensaver.",
-      image:
-        "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb8?auto=format&fit=crop&w=1600&q=80",
-    },
-    {
-      type: "gallery",
-      tone: "dark",
-      images: [
-        "https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=900&q=80",
-        "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=900&q=80",
-        "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=900&q=80",
-      ],
-    },
-    {
-      type: "closing",
-      tone: "cream",
-      heading: "Shipped to the show floor.",
-      body: "Operators used it live. The motions were small enough to trust and large enough to feel. Density held. The AI tray stayed closed until someone wanted it — which turned out to be often.",
-    },
-    { type: "readnext", slug: "tinig-turo" },
-  ],
-};
-
 export const caseStudies: Record<string, CaseStudy> = {
   "tinig-turo": tinigTuro,
   commutenity: commuteNity,
   stellar4,
   "tiktok-automate": tiktokAutomate,
-  lumen,
 };
 
 export function getCaseStudy(slug: string) {

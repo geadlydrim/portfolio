@@ -3,15 +3,18 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { projects } from "@/content/projects";
+import { usePrefersReducedMotion } from "@/lib/use-reduced-motion";
 
 function isVideoSrc(src: string) {
   return /\.(mp4|webm|ogg)(\?.*)?$/i.test(src);
 }
 
-function TileVideo({ src }: { src: string }) {
+function TileVideo({ src, poster }: { src: string; poster: string }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
     const el = ref.current;
     if (!el) return;
 
@@ -28,32 +31,51 @@ function TileVideo({ src }: { src: string }) {
 
     el.addEventListener("loadeddata", playAtRegularSpeed);
     el.addEventListener("ended", loopFromStart);
-    playAtRegularSpeed();
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.preload = "auto";
+          void el.play();
+        } else {
+          el.pause();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(el);
 
     return () => {
       el.removeEventListener("loadeddata", playAtRegularSpeed);
       el.removeEventListener("ended", loopFromStart);
+      observer.disconnect();
     };
-  }, [src]);
+  }, [src, reducedMotion]);
+
+  if (reducedMotion) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={poster} alt="" />;
+  }
 
   return (
     <video
       ref={ref}
       src={src}
+      poster={poster}
       muted
       loop
       playsInline
-      autoPlay
-      preload="auto"
+      preload="none"
       aria-hidden
     />
   );
 }
 
-function TileCover({ src }: { src: string }) {
+function TileCover({ src, poster }: { src: string; poster: string }) {
   if (isVideoSrc(src)) {
-    return <TileVideo src={src} />;
+    return <TileVideo src={src} poster={poster} />;
   }
+  // eslint-disable-next-line @next/next/no-img-element
   return <img src={src} alt="" />;
 }
 
@@ -66,18 +88,25 @@ export function ProjectTiles() {
   return (
     <div className="project-tiles">
       {rows.map((row, i) => (
-        <div className="tiles-row" key={i}>
+        <div className="tiles-row" data-lead={row[0].wide ? "wide" : "narrow"} key={i}>
           {row.map((p) => (
             <Link
               key={`${p.slug}-${p.cover}`}
               href={`/work/${p.slug}`}
               className={`project-tile ${p.wide ? "tile-wide" : "tile-narrow"}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <TileCover src={p.cover} />
-              <span className="tile-overlay">
-                <span className="tile-overlay-title">{p.title}</span>
-                <span className="tile-overlay-subtitle">{p.subtitle}</span>
+              <span className="tile-media">
+                <TileCover src={p.cover} poster={p.poster} />
+                <span className="tile-scrim" aria-hidden="true">
+                  <span className="tile-cue">View case study</span>
+                </span>
+              </span>
+              <span className="tile-caption">
+                <span className="tile-caption-meta">
+                  {p.client} · {p.year}
+                </span>
+                <span className="tile-caption-title">{p.title}</span>
+                <span className="tile-caption-sub">{p.subtitle}</span>
               </span>
             </Link>
           ))}

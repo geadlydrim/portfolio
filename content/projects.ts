@@ -5,8 +5,8 @@ export type Project = {
   year: string;
   client: string;
   role: string;
-  accent: string;
   cover: string;
+  poster: string;
   wide: boolean;
 };
 
@@ -18,8 +18,8 @@ export const projects: Project[] = [
     year: "2026",
     client: "FEU Institute of Technology",
     role: "Software Engineer",
-    accent: "#fc9073",
     cover: "/tinig-turo.mp4?v=3",
+    poster: "/work/tinig-turo-poster.jpg",
     wide: true,
   },
   {
@@ -29,8 +29,8 @@ export const projects: Project[] = [
     year: "2026",
     client: "Independent",
     role: "Software Engineer",
-    accent: "#ffb900",
     cover: "/stellar4.mp4?v=2",
+    poster: "/work/stellar4-poster.jpg",
     wide: false,
   },
   {
@@ -40,8 +40,8 @@ export const projects: Project[] = [
     year: "2026",
     client: "Independent",
     role: "Software Engineer",
-    accent: "#ff7a00",
     cover: "/commutenity.mp4?v=1",
+    poster: "/work/commutenity-poster.jpg",
     wide: false,
   },
   {
@@ -51,8 +51,8 @@ export const projects: Project[] = [
     year: "2026",
     client: "TikTok Engagement & Advertising",
     role: "Software Engineer",
-    accent: "#4a86ad",
     cover: "/tiktok-automate.mp4?v=2",
+    poster: "/work/tiktok-automate-poster.jpg",
     wide: true,
   },
 ];
