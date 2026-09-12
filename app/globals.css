@@ -642,7 +642,7 @@ button {
 .pl-stage {
   position: relative;
   width: 280px;
-  height: 80px;
+  height: 100px;
   overflow: hidden;
 }
 .pl-dots {
@@ -1211,6 +1211,8 @@ button {
 }
 
 .toolbox {
+  position: relative;
+  z-index: 10;
   background: var(--bg-base);
   padding: 0 0 40px;
   text-align: center;
