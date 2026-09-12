@@ -17,7 +17,6 @@ export function Testimonials() {
 
   return (
     <section className="testimonials" id="testimonials" data-nav="light">
-      <div className="t-willow" aria-hidden="true" />
       <div className="t-head">
         <p className="t-eyebrow">In their words</p>
         <h2 className="t-title">Kind notes from collaborators</h2>

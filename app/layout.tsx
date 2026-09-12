@@ -33,19 +33,19 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
     default: "Keanu Agustin - Software Developer",
     template: "%s — Keanu Agustin",
   },
   description: site.intro.lead,
-  icons: {
-    icon: [{ url: "/avatar.jpg?v=2", type: "image/jpeg" }],
-    apple: "/avatar.jpg?v=2",
-  },
   openGraph: {
     title: "Keanu Agustin - Software Developer",
     description: site.intro.lead,
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   verification: {
     google: "2a_iBLRBFE_Ycckj9wByholEldKvQMrYcoOXgCXqW4s",

@@ -25,7 +25,7 @@ export const site = {
     ],
   },
   footer: {
-    sub: "From early concepts to refined experiences, I help ambitious teams build products that earn trust, move quickly, and drive growth.",
+    sub: "Systems, interfaces, and the unglamorous parts in between. Open to teams that care about the last 5%.",
     headline: "Press play on the next idea",
     subtitle: "Contact me",
     credit: "Created by Keanu Agustin",

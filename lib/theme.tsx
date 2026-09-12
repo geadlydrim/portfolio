@@ -5,12 +5,14 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useState,
   type ReactNode,
 } from "react";
 
 export type Theme = "day" | "night";
 
 type ThemeContextValue = {
+  theme: Theme;
   setTheme: (theme: Theme) => void;
   toggle: () => void;
 };
@@ -30,8 +32,15 @@ function currentTheme(): Theme {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>(() =>
+    typeof document !== "undefined" ? currentTheme() : "day",
+  );
+
   const setTheme = useCallback((next: Theme) => {
-    const apply = () => applyTheme(next);
+    const apply = () => {
+      applyTheme(next);
+      setThemeState(next);
+    };
     const doc = document as Document & {
       startViewTransition?: (cb: () => void) => void;
     };
@@ -46,7 +55,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme(currentTheme() === "day" ? "night" : "day");
   }, [setTheme]);
 
-  const value = useMemo(() => ({ setTheme, toggle }), [setTheme, toggle]);
+  const value = useMemo(() => ({ theme, setTheme, toggle }), [theme, setTheme, toggle]);
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

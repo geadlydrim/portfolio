@@ -19,6 +19,7 @@ export async function generateMetadata({
   return {
     title: study.title,
     description: `${study.title} — case study by ${site.name}`,
+    openGraph: { title: study.title, description: `${study.title} — case study by ${site.name}` },
   };
 }
 
@@ -31,7 +32,7 @@ export default async function WorkPage({
   const study = getCaseStudy(slug);
   if (!study) notFound();
   return (
-    <main>
+    <main id="main" tabIndex={-1}>
       <CaseStudyView study={study} />
     </main>
   );

@@ -4,15 +4,15 @@ import { caseStudies } from "@/content/case-studies";
 
 export function CaseStudyView({ study }: { study: CaseStudy }) {
   return (
-    <article className="cs-page" style={{ ["--cs-accent" as string]: study.accent }}>
+    <article className="cs-page" data-accent={study.accent}>
       {study.bands.map((band, i) => (
-        <BandBlock key={i} band={band} repo={study.repo} />
+        <BandBlock key={i} band={band} repo={study.repo} title={study.title} />
       ))}
     </article>
   );
 }
 
-function BandBlock({ band, repo }: { band: Band; repo?: string }) {
+function BandBlock({ band, repo, title }: { band: Band; repo?: string; title: string }) {
   if (band.type === "hero") {
     return (
       <section className={`cs-band ${band.tone} cs-hero`} data-nav={band.tone === "dark" ? "dark" : "light"}>
@@ -42,7 +42,7 @@ function BandBlock({ band, repo }: { band: Band; repo?: string }) {
           </div>
           <div className="cs-hero-mock">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={band.image} alt="" />
+            <img src={band.image} alt={band.alt ?? `${title} — ${band.kicker ?? "screenshot"}`} />
           </div>
         </div>
       </section>
@@ -65,7 +65,7 @@ function BandBlock({ band, repo }: { band: Band; repo?: string }) {
             {band.image ? (
               <div className="cs-hero-mock" style={{ marginTop: 32 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={band.image} alt="" />
+                <img src={band.image} alt={band.alt ?? `${title} — ${band.heading ?? "screenshot"}`} />
               </div>
             ) : null}
             {band.note ? (
@@ -101,9 +101,9 @@ function BandBlock({ band, repo }: { band: Band; repo?: string }) {
         <div className="cs-wrap">
           {band.heading ? <h2 className="cs-h">{band.heading}</h2> : null}
           <div className="cs-gallery">
-            {band.images.map((src) => (
+            {band.images.map((src, idx) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={src} alt="" />
+              <img key={src} src={src} alt={band.imageAlts?.[idx] ?? `${title} — ${band.heading ?? "screenshot"}`} />
             ))}
           </div>
         </div>

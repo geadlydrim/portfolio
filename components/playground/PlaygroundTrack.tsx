@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { playground } from "@/content/playground";
 import { startActiveTimer, trackEvent } from "@/lib/analytics";
+import { useFocusTrap } from "@/lib/use-focus-trap";
 
 // Below this, the visitor was arrowing past the card rather than looking at it.
 const MIN_DWELL_MS = 1_000;
@@ -12,12 +13,17 @@ export function PlaygroundTrack() {
   const [open, setOpen] = useState(false);
   const n = playground.length;
   const current = playground[i];
+  const lightboxRef = useRef<HTMLDivElement>(null);
 
   const prev = useCallback(() => setI((v) => (v - 1 + n) % n), [n]);
   const next = useCallback(() => setI((v) => (v + 1) % n), [n]);
 
+  useFocusTrap(open, lightboxRef, () => setOpen(false));
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      const el = document.activeElement;
+      if (el instanceof HTMLElement && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable)) return;
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
       if (e.key === "Escape") setOpen(false);
@@ -80,7 +86,19 @@ export function PlaygroundTrack() {
                   zIndex: 10 - Math.abs(d),
                   opacity: Math.abs(d) > 2 ? 0 : 1,
                 }}
+                role="button"
+                tabIndex={0}
                 onClick={() => (active ? setOpen(true) : setI(idx))}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    if (active) setOpen(true);
+                    else setI(idx);
+                  } else if (e.key === " ") {
+                    e.preventDefault();
+                    if (active) setOpen(true);
+                    else setI(idx);
+                  }
+                }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={item.image} alt={item.title} />
@@ -104,13 +122,17 @@ export function PlaygroundTrack() {
       </div>
 
       {open ? (
-        <div className="pgf-lightbox" role="dialog" aria-modal="true" aria-label={current.title}>
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            aria-label="Close"
-            style={{ position: "absolute", top: 24, right: 24, color: "white", fontSize: 28 }}
-          >
+        <div
+          className="pgf-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={current.title}
+          ref={lightboxRef}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setOpen(false);
+          }}
+        >
+          <button type="button" onClick={() => setOpen(false)} aria-label="Close" className="pgf-close">
             ×
           </button>
           {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -17,6 +17,9 @@ export function AppChrome({ children }: { children: ReactNode }) {
     <ThemeProvider>
       <MusicProvider>
         <ContactProvider>
+          <a href="#main" className="skip-link">
+            Skip to content
+          </a>
           <RouteAnalytics />
           <PageLoader />
           <RouteCurtain />
