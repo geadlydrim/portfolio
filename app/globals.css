@@ -1472,13 +1472,15 @@ button {
   border: 2px solid var(--c-ink);
   box-shadow: var(--hard-shadow);
   border-radius: 6px;
-  padding: 40px 44px 36px 52px;
+  padding: 32px 40px 28px 52px;
   min-height: 240px;
+  max-height: min(360px, 60vh);
+  overflow-y: auto;
 }
 .t-quote {
   font-family: var(--font-serif), serif;
-  font-size: clamp(20px, 2.2vw, 28px);
-  line-height: 1.45;
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.5;
   letter-spacing: -0.02em;
 }
 .t-meta {
